@@ -2,6 +2,7 @@
   "name": "pguests",
   "version": "1.0.0",
   "description": "",
+  "repository": "https://github.com/rgrannell1/pguests.git",
   "scripts": {
   	"pguests": "pguests/cli/pguests.js"
   },
