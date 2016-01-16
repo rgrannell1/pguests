@@ -1,0 +1,13 @@
+{
+  "name": "pguests",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+  	"pguests": "pguests/cli/pguests.js"
+  },
+  "author": "",
+  "dependencies": {
+
+  },
+  "license": "MIT"
+}
