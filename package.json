@@ -1,14 +1,14 @@
 {
   "name": "pguests",
   "version": "1.0.0",
-  "description": "",
+  "description": "moniter traffic to a machine.",
   "repository": "https://github.com/rgrannell1/pguests.git",
   "scripts": {
-  	"pguests": "pguests/cli/pguests.js"
+    "pguests": "pguests/cli/pguests.js"
   },
   "author": "",
   "dependencies": {
-
+    "pcap": "mranney/node_pcap",
   },
   "license": "MIT"
 }
