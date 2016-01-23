@@ -1,12 +1,30 @@
 {
   "name": "pguests",
   "version": "1.0.0",
+
   "description": "moniter traffic to a machine.",
-  "repository": "https://github.com/rgrannell1/pguests.git",
-  "scripts": {
+
+  "preferGlobal": true,
+
+  "os": ["linux"],
+  "engines": {
+    "node": ">=4.0.0"
+  },
+
+  "contributors": [{
+    "name":  "Ryan Grannell",
+    "email": "r.grannell@gmail.com"
+  }],
+
+  "repository": {
+    "type": "git",
+    "url":  "https://github.com/rgrannell1/pguests.git"
+  },
+
+  "bin": {
     "pguests": "pguests/cli/pguests.js"
   },
-  "author": "",
+
   "dependencies": {
     "babel-polyfill": "^6.3.14",
     "pcap": "mranney/node_pcap"
