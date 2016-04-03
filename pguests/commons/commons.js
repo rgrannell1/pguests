@@ -54,6 +54,18 @@ commons.padString = (num, str) => {
 
 }
 
+commons.zeroPad = (num, str) => {
+
+	var outString = ''
+
+	for (var ith = str.length; ith < num; ++ith) {
+		outString += '0'
+	}
+
+	return outString + str
+
+}
+
 commons.maxByKeys = (fn, keys, objs) => {
 
 	return objs.map(obj => {

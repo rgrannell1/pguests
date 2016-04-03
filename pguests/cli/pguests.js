@@ -22,12 +22,18 @@ Description:
 	For example, the following output describes two http and https connections to two private IP addresses.
 
 	10.0.0.4
-	    http     service-name.com    19:30
-	    https    service-name.com    19:35
+		service   80
+		hostname  example-1.com
+		timestamp 21:10.46
+
+		service   443
+		hostname  example-1.com
+		timestamp 21:10.50
+
 	10.0.0.5
-	    http     service-name.com    19:40
-
-
+		service   443
+		hostname  example-2.com
+		timestamp 21:10.49
 
 Options:
 	-i IFACE, --interface IFACE      The interface to listen for traffic on. If unspecified,

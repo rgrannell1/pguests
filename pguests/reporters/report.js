@@ -93,9 +93,9 @@ formatEvents.hostname = hostname => {
 
 formatEvents.timestamp = timestamp => {
 
-	const hours     = commons.padString(2, timestamp.getHours( ))
-	const minutes   = commons.padString(2, timestamp.getMinutes( ))
-	const seconds   = commons.padString(2, timestamp.getSeconds( ))
+	const hours     = commons.zeroPad(2, timestamp.getHours( ))
+	const minutes   = commons.zeroPad(2, timestamp.getMinutes( ))
+	const seconds   = commons.zeroPad(2, timestamp.getSeconds( ))
 
 	return `${hours}:${minutes}.${seconds}`
 
