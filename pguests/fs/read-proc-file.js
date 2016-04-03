@@ -6,7 +6,7 @@
 
 
 const fs        = require('fs')
-const constants = require('pguests/commons/constants')
+const constants = require('../commons/constants')
 
 
 

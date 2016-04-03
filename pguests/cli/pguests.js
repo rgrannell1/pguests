@@ -11,7 +11,7 @@ Name:
 	pguests - Monitor IPs connecting to a machine.
 
 Usage:
-	pguests [-i IFACE | --interface IFACE][-P, --preserve-port] [--live] (-t SECONDS | --timeout SECONDS)
+	pguests [-i IFACE | --interface IFACE][-P | --preserve-port] [-l | --live] (-t SECONDS | --timeout SECONDS)
 	pguests (-h | --help | --version)
 
 Description:
@@ -21,6 +21,7 @@ Options:
 	     a default interface will be chosen by 'lib_pcap'.
 	-t SECONDS, --timeout SECONDS    Now long should this program run for?
 	-P, --preserve-port              Should the port ?
+	-l, --live                       Report connection information live, rather than on shutdown.
 	-h, --help                       Display this documentation.
 `
 
@@ -29,7 +30,7 @@ Options:
 
 
 const docopt  = require('docopt').docopt
-const pguests = require('pguests/app/pguests.js')
+const pguests = require('../app/pguests.js')
 
 require('babel-polyfill')
 

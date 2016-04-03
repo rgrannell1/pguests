@@ -5,8 +5,8 @@
 
 
 const is        = require('is')
-const commons   = require('pguests/commons/commons')
-const constants = require('pguests/commons/constants')
+const commons   = require('../commons/commons')
+const constants = require('../commons/constants')
 
 
 

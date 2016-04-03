@@ -8,8 +8,8 @@
 const pcap      = require('pcap')
 const events    = require('events')
 
-const constants      = require('pguests/commons/constants')
-const findIpMetadata = require('pguests/network/find-ip-metadata')
+const constants      = require('../commons/constants')
+const findIpMetadata = require('../network/find-ip-metadata')
 
 
 

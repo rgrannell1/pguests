@@ -7,9 +7,9 @@
 
 const events     = require('events')
 
-const constants  = require('pguests/commons/constants')
-const report     = require('pguests/reporters/report')
-const packetData = require('pguests/network/packet-data')
+const constants  = require('../commons/constants')
+const report     = require('../reporters/report')
+const packetData = require('../network/packet-data')
 
 
 
