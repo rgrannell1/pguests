@@ -84,20 +84,12 @@ report.live = function (events) {
 
 			const timestamp = event.socket.metadata.timestamp
 
-			const hours     = timestamp.getHours( ).toString( ).length === 1
-				? '0' + timestamp.getHours( )
-				: ''  + timestamp.getHours( )
+			const hours     = commons.padString(2, timestamp.getHours( ))
+			const minutes   = commons.padString(2, timestamp.getMinutes( ))
+			const seconds   = commons.padString(2, timestamp.getSeconds( ))
 
-			const minutes   = timestamp.getMinutes( ).toString( ).length === 1
-				? '0' + timestamp.getMinutes( )
-				: ''  + timestamp.getMinutes( )
-
-			const seconds   = timestamp.getSeconds( ).toString( ).length === 1
-				? '0' + timestamp.getSeconds( )
-				: ''  + timestamp.getSeconds( )
-
-			const service  = event.socket.remote.service
-			const hostname = event.socket.remote.hostname
+			const service   = event.socket.remote.service
+			const hostname  = event.socket.remote.hostname
 
 			const displayService   = service  ? service  : event.socket.remote.port
 			const displayHostname  = hostname ? hostname : constants.messages.unknownHost
@@ -139,20 +131,12 @@ report.shutdown = events => {
 
 			const timestamp = event.socket.metadata.timestamp
 
-			const hours     = timestamp.getHours( ).toString( ).length === 1
-				? '0' + timestamp.getHours( )
-				: ''  + timestamp.getHours( )
+			const hours     = commons.padString(2, timestamp.getHours( ))
+			const minutes   = commons.padString(2, timestamp.getMinutes( ))
+			const seconds   = commons.padString(2, timestamp.getSeconds( ))
 
-			const minutes   = timestamp.getMinutes( ).toString( ).length === 1
-				? '0' + timestamp.getMinutes( )
-				: ''  + timestamp.getMinutes( )
-
-			const seconds   = timestamp.getSeconds( ).toString( ).length === 1
-				? '0' + timestamp.getSeconds( )
-				: ''  + timestamp.getSeconds( )
-
-			const service  = event.socket.remote.service
-			const hostname = event.socket.remote.hostname
+			const service   = event.socket.remote.service
+			const hostname  = event.socket.remote.hostname
 
 			const displayService   = service  ? service  : event.socket.remote.port
 			const displayHostname  = hostname ? hostname : constants.messages.unknownHost

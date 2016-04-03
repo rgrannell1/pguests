@@ -5,64 +5,58 @@
 
 
 
-const events     = require('events')
+const events         = require('events')
 
-const constants  = require('../commons/constants')
-const report     = require('../reporters/report')
-const packetData = require('../network/packet-data')
+const constants      = require('../commons/constants')
+const report         = require('../reporters/report')
+const emitPacketData = require('../network/emit-packet-data')
 
+
+
+
+
+const capturePacketEvents = (args, state, conn) => {
+
+	const packetEvents = [
+		constants.events.socketStart,
+		constants.events.socketEnd,
+		constants.events.packet
+	]
+
+	packetEvents.forEach(event => {
+
+		conn.on(event, socket => {
+
+			state.received.push({event, socket})
+
+			if (args.live) {
+				report.live(state.received)
+			}
+
+		})
+
+	})
+
+	return state
+
+}
 
 
 
 
 const pguests = rawArgs => {
 
-	const args            = pguests.preprocess(rawArgs)
-	const pconn           = packetData(args)
+	const args  = pguests.preprocess(rawArgs)
+	const pconn = emitPacketData(args)
 
-	const state = {
+	const state = capturePacketEvents(args, {
 		received: [ ]
-	}
+	}, pconn)
 
-
-	pconn.on(constants.events.socketStart, socket => {
-
-		state.received.push({
-			event: constants.events.socketStart,
-			socket
-		})
-
-		if (args.live) {
-			report.live(state.received)
-		}
-
-	})
-
-	pconn.on(constants.events.socketEnd, socket => {
-
-		state.received.push({
-			event: constants.events.socketEnd,
-			socket
-		})
-
-		if (args.live) {
-			report.live(state.received)
-		}
-
-	})
-
-	pconn.on(constants.events.packet, packet => {
-
-		state.received.push({
-			event: constants.events.packet,
-			packet
-		})
-
-		if (args.live) {
-			report.live(state.received)
-		}
-
-	})
+	/*
+		if a non-live timeout is set, display
+		packets recieved on exit.
+	*/
 
 	if (args.timeout) {
 

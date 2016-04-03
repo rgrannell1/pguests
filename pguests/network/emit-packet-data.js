@@ -119,7 +119,7 @@ listeners.tcp = (iface, emitter) => {
 
 
 
-const packetData = args => {
+const emitPacketData = args => {
 
 	var emitter = new events.EventEmitter( )
 	emitter     = listeners.tcp(args.interface, emitter)
@@ -132,4 +132,4 @@ const packetData = args => {
 
 
 
-module.exports = packetData
+module.exports = emitPacketData
