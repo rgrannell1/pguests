@@ -58,6 +58,52 @@ removeClosed.precond = events => {
 
 
 
+const formatEvents = events => {
+
+	const remoteIps = commons.groupBy(event => {
+		return event.socket.remote.ip
+	}, events)
+
+	const output = { }
+
+	Object.keys(remoteIps).map(ip => {
+
+		output[ip] = remoteIps[ip].map(event => {
+
+			return {
+				service:   formatEvents.service(event, event.socket.remote.service),
+				hostname:  formatEvents.hostname(event.socket.remote.hostname),
+				timestamp: formatEvents.timestamp(event.socket.metadata.timestamp)
+			}
+
+		})
+	})
+
+	return output
+
+}
+
+formatEvents.service = (event, service) => {
+	return service ? service  : event.socket.remote.port
+}
+
+formatEvents.hostname = hostname => {
+	return hostname ? hostname : constants.messages.unknownHost
+}
+
+formatEvents.timestamp = timestamp => {
+
+	const hours     = commons.padString(2, timestamp.getHours( ))
+	const minutes   = commons.padString(2, timestamp.getMinutes( ))
+	const seconds   = commons.padString(2, timestamp.getSeconds( ))
+
+	return `${hours}:${minutes}.${seconds}`
+
+}
+
+
+
+
 
 var report = { }
 
@@ -69,36 +115,22 @@ report.live = function (events) {
 
 	report.live.precond(events)
 
-	events = removeClosed(events)
+	const unclosedEvents   = removeClosed(events)
+	const displayedContent = formatEvents(unclosedEvents)
 
-	const remoteIps = commons.groupBy(event => {
-		return event.socket.remote.ip
-	}, events)
-
-	Object.keys(remoteIps).forEach(ip => {
+	Object.keys(displayedContent).forEach(ip => {
 
 		console.log(ip)
-		const remotePorts = remoteIps[ip]
 
-		remotePorts.forEach(event => {
+		displayedContent[ip].forEach(service => {
 
-			const timestamp = event.socket.metadata.timestamp
+			Object.keys(service).forEach(prop => {
+				console.log(`	${prop} ${service[prop]}`)
+			})
 
-			const hours     = commons.padString(2, timestamp.getHours( ))
-			const minutes   = commons.padString(2, timestamp.getMinutes( ))
-			const seconds   = commons.padString(2, timestamp.getSeconds( ))
-
-			const service   = event.socket.remote.service
-			const hostname  = event.socket.remote.hostname
-
-			const displayService   = service  ? service  : event.socket.remote.port
-			const displayHostname  = hostname ? hostname : constants.messages.unknownHost
-			const displayTimestamp = `${hours}:${minutes}.${seconds}`
-
-			console.log(`    ${displayService}    ${displayHostname}    ${displayTimestamp}`)
+			console.log('')
 
 		})
-
 
 	})
 
@@ -116,33 +148,24 @@ report.shutdown = events => {
 
 	report.shutdown.precond(events)
 
-	events = removeClosed(events)
+	const unclosedEvents   = removeClosed(events)
+	const displayedContent = formatEvents(unclosedEvents)
 
-	const remoteIps = commons.groupBy(event => {
-		return event.socket.remote.ip
-	}, events)
-
-	Object.keys(remoteIps).forEach(ip => {
+	Object.keys(displayedContent).forEach(ip => {
 
 		console.log(ip)
-		const remotePorts = remoteIps[ip]
 
-		remotePorts.forEach(event => {
+		displayedContent[ip].forEach(service => {
 
-			const timestamp = event.socket.metadata.timestamp
+			const propWidth = Object.keys(service).reduce((max, prop) => {
+				return Math.max(max, prop.length)
+			}, 0)
 
-			const hours     = commons.padString(2, timestamp.getHours( ))
-			const minutes   = commons.padString(2, timestamp.getMinutes( ))
-			const seconds   = commons.padString(2, timestamp.getSeconds( ))
+			Object.keys(service).forEach(prop => {
+				console.log(`	${commons.padString(propWidth, prop)} ${service[prop]}`)
+			})
 
-			const service   = event.socket.remote.service
-			const hostname  = event.socket.remote.hostname
-
-			const displayService   = service  ? service  : event.socket.remote.port
-			const displayHostname  = hostname ? hostname : constants.messages.unknownHost
-			const displayTimestamp = `${hours}:${minutes}.${seconds}`
-
-			console.log(`    ${displayService}    ${displayHostname}    ${displayTimestamp}`)
+			console.log('')
 
 		})
 
